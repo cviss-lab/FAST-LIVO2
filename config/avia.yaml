@@ -1,22 +1,35 @@
-/**:
+/laserMapping:
   ros__parameters:
+    camera.cam_model: Pinhole
+    camera.cam_width: 1920
+    camera.cam_height: 1080
+    camera.scale: 0.5
+    camera.cam_fx: 1293.56944
+    camera.cam_fy: 1293.3155
+    camera.cam_cx: 626.91359
+    camera.cam_cy: 522.799224
+    camera.cam_d0: -0.076160
+    camera.cam_d1: 0.123001
+    camera.cam_d2: -0.00113
+    camera.cam_d3: 0.000251
+     
     common:
-      img_topic: "/left_camera/image"
+      img_topic: "/front_cam/front/image_raw"
       lid_topic: "/livox/lidar"
-      imu_topic: "/livox/imu"
+      imu_topic: "/imu/imu/out"
       img_en: 1
       lidar_en: 1
       ros_driver_bug_fix: false
 
-    extrin_calib:
-      extrinsic_T: [0.04165, 0.02326, -0.0284]
+    extrin_calib: #Make sure this matches urdf
+      extrinsic_T: [0.2726, 0.0, 0.0]
       extrinsic_R: [1.0, 0.0, 0.0,
                     0.0, 1.0, 0.0,
                     0.0, 0.0, 1.0]
-      Rcl: [0.00610193,-0.999863,-0.0154172,
-            -0.00615449,0.0153796,-0.999863,
-            0.999962,0.00619598,-0.0060598] 
-      Pcl: [0.0194384, 0.104689,-0.0251952]
+      Rcl: [1.0, 0.0, 0.0,
+            0.0, 1.0, 0.0,
+            0.0, 0.0, 1.0] 
+      Pcl: [0.0, 0.0, 0.0]
 
     time_offset: 
       imu_time_offset: 0.0

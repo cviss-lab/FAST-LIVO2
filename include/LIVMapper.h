@@ -16,7 +16,11 @@ which is included as part of this source code package.
 #include "IMU_Processing.h"
 #include "vio.h"
 #include "preprocess.h"
+#ifdef PRE_ROS_IRON
 #include <cv_bridge/cv_bridge.h>
+#else
+#include <cv_bridge/cv_bridge.hpp>
+#endif
 #include <image_transport/image_transport.hpp>
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
@@ -26,7 +30,7 @@ which is included as part of this source code package.
 class LIVMapper
 {
 public:
-  LIVMapper(rclcpp::Node::SharedPtr &node, std::string node_name);
+  LIVMapper(rclcpp::Node::SharedPtr &node, std::string node_name, const rclcpp::NodeOptions & options = rclcpp::NodeOptions());
   ~LIVMapper();
   void initializeSubscribersAndPublishers(rclcpp::Node::SharedPtr &nh, image_transport::ImageTransport &it_);
   void initializeComponents(rclcpp::Node::SharedPtr &node);
@@ -99,7 +103,6 @@ public:
   nav_msgs::msg::Odometry imu_prop_odom;
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr pubImuPropOdom;
   double imu_time_offset = 0.0;
-  double lidar_time_offset = 0.0;
 
   bool gravity_align_en = false, gravity_align_finished = false;
 

@@ -1,12 +1,21 @@
 cmake_minimum_required(VERSION 3.10)
 project(fast_livo)
 
+if(POLICY CMP0074)
+  cmake_policy(SET CMP0074 NEW)
+endif()
+
 set(CMAKE_BUILD_TYPE "Release")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_SKIP_BUILD_RPATH TRUE)
+
+IF("$ENV{ROS_DISTRO}" STRLESS "iron")
+  add_definitions(-DPRE_ROS_IRON)
+ENDIF()
 
 # Set common compile options
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -fexceptions")
@@ -140,6 +149,8 @@ add_library(imu_proc src/IMU_Processing.cpp)
 add_library(laser_mapping src/LIVMapper.cpp)
 add_library(utils src/utils.cpp)
 
+set(Sophus_LIBRARIES /usr/local/lib/libSophus.so)
+
 ament_target_dependencies(vio ${dependencies} )
 ament_target_dependencies(lio ${dependencies})
 ament_target_dependencies(pre ${dependencies})
@@ -148,8 +159,8 @@ ament_target_dependencies(laser_mapping ${dependencies})
 
 # linking libraries or executables to public dependencies
 target_link_libraries(laser_mapping 
-    ${CMAKE_SOURCE_DIR}/../../install/vikit_common/lib/libvikit_common.so 
-    ${CMAKE_SOURCE_DIR}/../../install/vikit_ros/lib/libvikit_ros.so
+    ${CMAKE_SOURCE_DIR}/../install/vikit_common/lib/libvikit_common.so 
+    ${CMAKE_SOURCE_DIR}/../install/vikit_ros/lib/libvikit_ros.so
     ${COMMON_DEPENDENCIES}
 )
 target_link_libraries(vio ${COMMON_DEPENDENCIES})

@@ -19,7 +19,7 @@ which is included as part of this source code package.
 #include <utils/utils.h>
 #include <opencv2/opencv.hpp>
 #include <sensor_msgs/msg/imu.hpp>
-#include <sophus/se3.hpp>
+#include <sophus/se3.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2/LinearMath/Transform.hpp>
 #include <tf2/LinearMath/Quaternion.hpp>

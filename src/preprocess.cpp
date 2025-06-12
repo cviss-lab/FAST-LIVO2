@@ -19,6 +19,7 @@ Preprocess::Preprocess() : feature_enabled(0), lidar_type(AVIA), blind(0.01), po
 {
   inf_bound = 10;
   N_SCANS = 6;
+  SCAN_RATE = 10;
   group_size = 8;
   disA = 0.01;
   disA = 0.1; // B?
@@ -48,6 +49,7 @@ void Preprocess::set(bool feat_en, int lid_type, double bld, int pfilt_num)
   feature_enabled = feat_en;
   lidar_type = lid_type;
   blind = bld;
+  blind_sqr = bld * bld;
   point_filter_num = pfilt_num;
 }
 
